@@ -20,13 +20,20 @@ FLAGS = -Wall -Werror -Wextra
 
 #FDF FILES
 SRC_PATH = ./srcs/
-SRC = 	pipex parsing
+SRC = 	pipex \
+		parsing \
+		children
 C_FILES = $(addprefix $(SRC_PATH), $(SRC:=.c))
 OBJ = $(addprefix $(SRC_PATH), $(SRC:=.o))
 
 #LIBFT
 LBFT_PATH = ./libft/
-LBFT = ft_split ft_strlcpy ft_strlen ft_substr ft_strncmp ft_strnstr
+LBFT = 	ft_split \
+		ft_strlcpy \
+		ft_strlen \
+		ft_substr \
+		ft_strncmp \
+		ft_strnstr
 LBFT_FILES = $(addprefix $(LBFT_PATH), $(LBFT:=.c))
 LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 

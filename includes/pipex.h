@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/05 19:22:50 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:03:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_pipex {
     pid_t   pid2;
     char    **cmd1;
     char    **cmd2;
-    int     fd[2];
+    int     pipe[2];
     char    *env_path;
     char    **cmd_paths;
     char    *cmd;
@@ -37,8 +37,10 @@ typedef struct s_pipex {
 }   t_pipex;
 
 /*PIPEX FUNCTIONS*/
-int	find_cmd_paths(t_pipex *pipex, char **env);
-int	parsing(t_pipex *pipex, char **argv);
+int     find_cmd_paths(t_pipex *pipex, char **env);
+int     parsing(t_pipex *pipex, char **argv);
+int	    child_one(t_pipex *pipex, char **env);
+int	    child_two(t_pipex *pipex, char **env);
 
 /*LIBFT FUNCTIONS*/
 char	**ft_split(char const *s, char c);
