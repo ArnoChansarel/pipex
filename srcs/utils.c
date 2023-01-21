@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 11:12:08 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/21 16:26:40 by achansar         ###   ########.fr       */
+/*   Created: 2023/01/21 16:26:43 by achansar          #+#    #+#             */
+/*   Updated: 2023/01/21 16:26:59 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-// modele : file1 "cmd1" "cmd2" file2
-
-/*
-free() => tous ! + protections
-gestion d'erreur
-cas particuliers
-*/
-
-int main(int argc, char *argv[], char *env[])
+int	free_array(char **array)
 {
-	t_pipex pipex;
+	int	i;
 
-	if (argc == 5)
-	{
-		if (init_pipex(&pipex, argv, env))
-			return (1);
-		if (launch_processes(&pipex, env))
-			return (1);
-		close_pipe(&pipex);
-		free_array(pipex.cmd1);
-		free_array(pipex.cmd2);
-		free_array(pipex.cmd_paths);
-		return (0);
-	}
-	else
-		return (1);
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+	return (0);
+}
+
+int	ft_close(t_pipex *pipex)
+{
+	close(pipex->fd1);
+	close(pipex->fd2);
+	return (1);
+}
+
+int	close_pipe(t_pipex *pipex)
+{
+	close(pipex->pipe[0]);
+	close(pipex->pipe[1]);
+	return (0);
 }

@@ -22,7 +22,8 @@ FLAGS = -Wall -Werror -Wextra
 SRC_PATH = ./srcs/
 SRC = 	pipex \
 		parsing \
-		children
+		children \
+		utils
 C_FILES = $(addprefix $(SRC_PATH), $(SRC:=.c))
 OBJ = $(addprefix $(SRC_PATH), $(SRC:=.o))
 
@@ -30,6 +31,7 @@ OBJ = $(addprefix $(SRC_PATH), $(SRC:=.o))
 LBFT_PATH = ./libft/
 LBFT = 	ft_split \
 		ft_strlcpy \
+		ft_strjoin \
 		ft_strlen \
 		ft_substr \
 		ft_strncmp \

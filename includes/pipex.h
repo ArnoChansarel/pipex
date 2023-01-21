@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/15 15:03:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/21 16:27:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,18 @@ typedef struct s_pipex {
 }   t_pipex;
 
 /*PIPEX FUNCTIONS*/
-int     find_cmd_paths(t_pipex *pipex, char **env);
-int     parsing(t_pipex *pipex, char **argv);
-int	    child_one(t_pipex *pipex, char **env);
-int	    child_two(t_pipex *pipex, char **env);
+int     init_pipex(t_pipex *pipex, char **argv, char **env);
+int     launch_processes(t_pipex *pipex, char **env);
+
+/*UTILS*/
+int     free_array(char **array);
+int     ft_close(t_pipex *pipex);
+int     close_pipe(t_pipex *pipex);
 
 /*LIBFT FUNCTIONS*/
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
