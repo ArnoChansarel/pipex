@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 20:06:00 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/21 16:08:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:33:46 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 static int	find_cmd_paths(t_pipex *pipex, char **env)
 {
 	pipex->env_path = NULL;
-	while(*env && !pipex->env_path)
+	while (*env && !pipex->env_path)
 	{
 		pipex->env_path = ft_strnstr(*env, "PATH=", 5);
 		env++;
 	}
-	// printf("line = %s\n", pipex->env_path);
 	pipex->cmd_paths = ft_split(pipex->env_path + 5, ':');
 	if (!pipex->cmd_paths)
 	{
@@ -45,32 +44,26 @@ static int	get_cmd(t_pipex *pipex, char **argv)
 	return (0);
 }
 
-int init_pipex(t_pipex *pipex, char **argv, char **env)
+int	init_pipex(t_pipex *pipex, char **argv, char **env)
 {
-	// OUVERTURE DES FILES
+	pipex->fd2 = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (pipex->fd2 < 0)
+		return (1);
 	pipex->fd1 = open(argv[1], O_RDONLY);
 	if (pipex->fd1 < 0)
-		return (1);
-	pipex->fd2 = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC);
-	if (pipex->fd2 < 0)
 	{
-		close (pipex->fd1);
+		close(pipex->fd2);
 		return (1);
 	}
-	
-	// RECUPERATION DES COMMANDES + ARGS
 	if (get_cmd(pipex, argv))
 		return (1);
-
-	// AJOUT DES CHEMINS DE COMMANDE.
 	if (find_cmd_paths(pipex, env))
 		return (1);
-		
-	// CREATION PIPE
-	if (pipe(pipex->pipe) == -1)//                => je dois le free ?
+	if (pipe(pipex->pipe) == -1)
 	{
-		perror("pipe : ");//                      => commencer gestion d'erreur.
-		exit(1);//                                => en comprendre tout le sens.
+		perror("pipe : ");
+		ft_close(pipex);
+		return (1);
 	}
 	return (0);
 }
