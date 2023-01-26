@@ -1,0 +1,4 @@
+pipex
+*.txt
+pipexaminator/
+.DS_Store
