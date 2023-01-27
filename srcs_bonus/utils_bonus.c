@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:26:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/26 18:34:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:51:10 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
-
-int	handle_awk(char *argv, char **cmd)
-{
-	int	i;
-
-	i = 1;
-	while (*argv && (*argv != '\'' && *argv != '\"'))
-		argv++;
-	while (*argv && (*argv == '\'' || *argv == '\"'))
-		argv++;
-	cmd[i] = argv;
-	while (*argv && (*argv != '\'' && *argv != '\"'))
-		argv++;
-	*argv = '\0';
-	while (cmd[++i])
-		cmd[i] = NULL;
-	return (0);
-}
+#include "../includes/pipex_bonus.h"
 
 int	cmd_not_found(t_pipex *pipex, char *cmd)
 {
@@ -61,4 +43,11 @@ int	close_pipe(t_pipex *pipex)
 	close(pipex->pipe[0]);
 	close(pipex->pipe[1]);
 	return (0);
+}
+
+int	ft_free_all(t_pipex	*pipex)
+{
+	free_array(pipex->remplace_cmd1);
+	free_array(pipex->cmd_paths);
+	return (1);
 }

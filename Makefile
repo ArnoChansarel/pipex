@@ -54,18 +54,18 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LBFT_OBJ)
 	@ $(CC) $(FLAGS) $(OBJ) $(LBFT_OBJ) -o $(NAME)
 
-bonus: $(OBJ_BONUS) $(LBFT_OBJ)
-	@ $(CC) $(FLAGS) $(OBJ_BONUS) $(LBFT_OBJ) -o $(NAME)
+#bonus: $(OBJ_BONUS) $(LBFT_OBJ)
+#	@ $(CC) $(FLAGS) $(OBJ_BONUS) $(LBFT_OBJ) -o $(NAME)
 
 .c.o:
 	@ $(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJ) $(LBFT_OBJ)
+	@rm -f $(OBJ) $(OBJ_BONUS) $(LBFT_OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

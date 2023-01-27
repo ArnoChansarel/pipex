@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:01:47 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/26 16:09:27 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:48:53 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	child_two(t_pipex *pipex, char **env)
 	cmd = get_cmd(pipex, pipex->cmd2);
 	if (!cmd)
 	{
-		printf("cmd2 = %s | arg = %s\n", pipex->cmd2[0], pipex->cmd2[1]);
 		cmd_not_found(pipex, pipex->cmd2[0]);
 		exit(127);
 	}

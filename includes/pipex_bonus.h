@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/26 18:04:04 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:52:50 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,28 @@
 # include <stdlib.h>
 
 typedef struct s_arg {
-	char	**arg;
+	int		argc;
+	char	**argv;
+	char	**env;
 }	t_arg;
 
 typedef struct s_pipex {
-	pid_t	pid1;
-	pid_t	pid2;
-	char	**cmd1;
-	char	**cmd2;
+	pid_t	pid;
 	int		pipe[2];
 	char	*env_path;
 	char	**cmd_paths;
+	char	**remplace_cmd1;
 	char	*cmd;
 	char	*cmd_args;
 	int		fd1;
 	int		fd2;
+	t_arg	args;
 }	t_pipex;
 
 /*PIPEX FUNCTIONS*/
 int		init_pipex(t_pipex *pipex, char **argv, char **env);
-int		launch_processes(t_pipex *pipex, char **env);
+int		launch_processes(t_pipex *pipex, t_arg args);
+char	*get_cmd1(t_pipex *pipex, t_arg args, char **cmd);
 
 /*UTILS*/
 int		free_array(char **array);
@@ -45,7 +47,6 @@ int		ft_close(t_pipex *pipex);
 int		close_pipe(t_pipex *pipex);
 int		ft_free_all(t_pipex	*pipex);
 int		cmd_not_found(t_pipex *pipex, char *cmd);
-int		handle_awk(char *argv, char **cmd);
 
 /*LIBFT FUNCTIONS*/
 char	**ft_split(char const *s, char c);
