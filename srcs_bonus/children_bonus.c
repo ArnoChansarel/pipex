@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:01:47 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/29 19:46:08 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:56:40 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static int	parent_process(t_pipex *pipex, t_arg *args)
 	int	status;
 	int	var;
 
-	(void)pipex;
-	(void)args;
 	close(pipex->pipe[1]);
 	if (args->i <= args->argc - 2)
 	{
@@ -83,9 +81,16 @@ static int	parent_process(t_pipex *pipex, t_arg *args)
 	else
 		close (pipex->pipe[0]);
 	waitpid(pipex->pid, &status, 0);
-	var = WEXITSTATUS(status);
-	if (var)
-		exit(var);
+	if (args->i == args->argc - 2)
+	{
+		var = WEXITSTATUS(status);
+		if (var)
+		{
+			perror("");
+			unlink("here_doc");
+			exit(var);
+		}
+	}
 	return (0);
 }
 

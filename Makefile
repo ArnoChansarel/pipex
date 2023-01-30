@@ -32,7 +32,9 @@ SRC_PATH_BONUS = ./srcs_bonus/
 SRC_BONUS = pipex_bonus \
 			parsing_bonus \
 			children_bonus \
-			utils_bonus
+			utils_bonus \
+			gnl/get_next_line \
+			gnl/get_next_line_utils
 C_FILES_BONUS = $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS:=.c))
 OBJ_BONUS = $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS:=.o))
 
@@ -66,6 +68,6 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
-re: fclean all
+re: fclean all clean
 
 .PHONY: all bonus clean fclean re

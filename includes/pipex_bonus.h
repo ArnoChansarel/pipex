@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/30 12:06:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:03:30 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include "../srcs_bonus/gnl/get_next_line.h"
 
 typedef struct s_arg {
 	int		argc;
@@ -41,6 +42,8 @@ typedef struct s_pipex {
 int		init_pipex(t_pipex *pipex, char **argv);
 int		launch_processes(t_pipex *pipex, t_arg *args);
 char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd);
+int		get_here_doc(t_pipex *pipex, char **argv);
+int		pipex_init(t_pipex *pipex, int argc, char **argv, char **env);
 
 /*UTILS*/
 int		free_array(char **array);
@@ -53,7 +56,7 @@ int		cmd_not_found(t_pipex *pipex, char *cmd);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

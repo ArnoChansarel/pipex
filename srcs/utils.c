@@ -6,18 +6,16 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:26:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/30 11:33:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:23:40 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	cmd_not_found(t_pipex *pipex, char *cmd)
+int	cmd_not_found(char *cmd)
 {
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
-	free_array(pipex->command);
-	free_array(pipex->cmd_paths);
 	return (0);
 }
 

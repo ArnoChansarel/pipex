@@ -2,3 +2,4 @@ pipex
 *.txt
 pipexaminator/
 .DS_Store
+output

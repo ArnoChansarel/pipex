@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 20:06:00 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/30 12:05:20 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:56:21 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd)
 {
 	char	*cmd_rtr;
 
+	if (*cmd == '\0')
+		return (NULL);
 	cmd_rtr = NULL;
 	if (get_instruction(pipex, cmd))
 		return (NULL);

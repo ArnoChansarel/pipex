@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:01:47 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/29 19:48:04 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:54:35 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	child_infile(t_pipex *pipex, char *arg, char **env)
 	cmd = get_cmd(pipex, pipex->args, arg);
 	if (!cmd)
 	{
-		cmd_not_found(pipex, pipex->command[0]);
+		cmd_not_found(pipex->command[0]);
 		exit(127);
 	}
 	close(pipex->pipe[0]);
@@ -39,7 +39,7 @@ static int	child_outfile(t_pipex *pipex, char *arg, char **env)
 	cmd = get_cmd(pipex, pipex->args, arg);
 	if (!cmd)
 	{
-		cmd_not_found(pipex, pipex->command[0]);
+		cmd_not_found(pipex->command[0]);
 		exit(127);
 	}
 	close(pipex->pipe[1]);
@@ -55,8 +55,6 @@ static int	parent_process(t_pipex *pipex, t_arg *args)
 	int	status;
 	int	var;
 
-	(void)pipex;
-	(void)args;
 	close(pipex->pipe[1]);
 	if (args->i <= args->argc - 2)
 	{
@@ -66,9 +64,15 @@ static int	parent_process(t_pipex *pipex, t_arg *args)
 	else
 		close (pipex->pipe[0]);
 	waitpid(pipex->pid, &status, 0);
-	var = WEXITSTATUS(status);
-	if (var)
-		exit(var);
+	if (args->i == args->argc - 2)
+	{
+		var = WEXITSTATUS(status);
+		if (var)
+		{
+			system("leaks pipex");
+			exit(var);
+		}
+	}
 	return (0);
 }
 

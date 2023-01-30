@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/29 19:40:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:23:59 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		free_array(char **array);
 int		ft_close(t_pipex *pipex);
 int		close_pipe(t_pipex *pipex);
 int		ft_free_all(t_pipex	*pipex);
-int		cmd_not_found(t_pipex *pipex, char *cmd);
+int		cmd_not_found(char *cmd);
 
 /*LIBFT FUNCTIONS*/
 char	**ft_split(char const *s, char c);
