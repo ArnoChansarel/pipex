@@ -54,8 +54,8 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LBFT_OBJ)
 	@ $(CC) $(FLAGS) $(OBJ) $(LBFT_OBJ) -o $(NAME)
 
-#bonus: $(OBJ_BONUS) $(LBFT_OBJ)
-#	@ $(CC) $(FLAGS) $(OBJ_BONUS) $(LBFT_OBJ) -o $(NAME)
+bonus: $(OBJ_BONUS) $(LBFT_OBJ)
+	@ $(CC) $(FLAGS) $(OBJ_BONUS) $(LBFT_OBJ) -o $(NAME)
 
 .c.o:
 	@ $(CC) $(FLAGS) -c $< -o $@

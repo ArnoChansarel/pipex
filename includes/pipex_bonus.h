@@ -6,12 +6,12 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/27 15:52:50 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:06:25 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -21,6 +21,8 @@ typedef struct s_arg {
 	int		argc;
 	char	**argv;
 	char	**env;
+	int		i;
+	int		here_doc;
 }	t_arg;
 
 typedef struct s_pipex {
@@ -28,18 +30,17 @@ typedef struct s_pipex {
 	int		pipe[2];
 	char	*env_path;
 	char	**cmd_paths;
-	char	**remplace_cmd1;
+	char	**command;
 	char	*cmd;
-	char	*cmd_args;
 	int		fd1;
 	int		fd2;
 	t_arg	args;
 }	t_pipex;
 
 /*PIPEX FUNCTIONS*/
-int		init_pipex(t_pipex *pipex, char **argv, char **env);
-int		launch_processes(t_pipex *pipex, t_arg args);
-char	*get_cmd1(t_pipex *pipex, t_arg args, char **cmd);
+int		init_pipex(t_pipex *pipex, char **argv);
+int		launch_processes(t_pipex *pipex, t_arg *args);
+char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd);
 
 /*UTILS*/
 int		free_array(char **array);

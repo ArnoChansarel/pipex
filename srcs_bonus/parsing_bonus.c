@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 20:06:00 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/27 15:52:40 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:37:51 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,33 @@ static int	find_cmd_paths(t_pipex *pipex, char **env)
 	pipex->cmd_paths = ft_split(pipex->env_path + 5, ':');
 	if (!pipex->cmd_paths)
 	{
-		free_array(pipex->remplace_cmd1);
+		free_array(pipex->command);
 		return (ft_close(pipex));
 	}
 	return (0);
 }
 
-static int	get_cmd2(t_pipex *pipex, char **argv)
+static int	get_instruction(t_pipex *pipex, char *cmd)
 {
-	pipex->remplace_cmd1 = ft_split(argv[2], ' ');
-	if (!pipex->remplace_cmd1)
+	pipex->command = ft_split(cmd, ' ');
+	if (!pipex->command)
 		return (ft_close(pipex));
-	if (ft_strncmp(pipex->remplace_cmd1[0], "awk", 3) == 0)
-		handle_awk(argv[2], pipex->remplace_cmd1);
+	if (ft_strncmp(pipex->command[0], "awk", 3) == 0)
+		handle_awk(cmd, pipex->command);
 	return (0);
 }
 
-char	*get_cmd1(t_pipex *pipex, t_arg args, char **cmd)
+char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd)
 {
-	if (get_cmd2(pipex, args.argv))
-		return (1);
+	char	*cmd_rtr;
+
+	cmd_rtr = NULL;
+	if (get_instruction(pipex, cmd))
+		return (NULL);
 	if (find_cmd_paths(pipex, args.env))
-		return (1);
-	return (check_cmd(pipex, pipex->remplace_cmd1));
+		return (NULL);
+	cmd_rtr = check_cmd(pipex, pipex->command);
+	if (!cmd_rtr)
+		return (NULL);
+	return (cmd_rtr);
 }

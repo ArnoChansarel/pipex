@@ -6,11 +6,58 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 20:06:00 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/27 14:42:42 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:05:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+static int	handle_awk(char *argv, char **cmd)
+{
+	int	i;
+
+	i = 1;
+	while (*argv && (*argv != '\'' && *argv != '\"'))
+		argv++;
+	while (*argv && (*argv == '\'' || *argv == '\"'))
+		argv++;
+	cmd[i] = argv;
+	while (*argv && (*argv != '\'' && *argv != '\"'))
+		argv++;
+	*argv = '\0';
+	while (cmd[++i])
+		cmd[i] = NULL;
+	return (0);
+}
+
+static char	*check_cmd(t_pipex *pipex, char **cmd)
+{
+	int		i;
+	char	*cmd_path;
+	char	*join;
+
+	i = 0;
+	if (access(cmd[0], F_OK) == 0)
+		return (cmd[0]);
+	else
+	{
+		while (pipex->cmd_paths[i])
+		{
+			join = ft_strjoin(pipex->cmd_paths[i], "/");
+			if (!join)
+				return (NULL);
+			cmd_path = ft_strjoin(join, cmd[0]);
+			free(join);
+			if (!cmd_path)
+				return (NULL);
+			if (access(cmd_path, F_OK) == 0)
+				return (cmd_path);
+			free(cmd_path);
+			i++;
+		}
+	}
+	return (NULL);
+}
 
 static int	find_cmd_paths(t_pipex *pipex, char **env)
 {
@@ -23,51 +70,33 @@ static int	find_cmd_paths(t_pipex *pipex, char **env)
 	pipex->cmd_paths = ft_split(pipex->env_path + 5, ':');
 	if (!pipex->cmd_paths)
 	{
-		free_array(pipex->cmd1);
-		free_array(pipex->cmd2);
+		free_array(pipex->command);
 		return (ft_close(pipex));
 	}
 	return (0);
 }
 
-static int	get_cmd(t_pipex *pipex, char **argv)
+static int	get_instruction(t_pipex *pipex, char *cmd)
 {
-	pipex->cmd1 = ft_split(argv[2], ' ');
-	if (!pipex->cmd1)
+	pipex->command = ft_split(cmd, ' ');
+	if (!pipex->command)
 		return (ft_close(pipex));
-	if (ft_strncmp(pipex->cmd1[0], "awk", 3) == 0)
-		handle_awk(argv[2], pipex->cmd1);
-	pipex->cmd2 = ft_split(argv[3], ' ');
-	if (!pipex->cmd2)
-	{
-		free_array(pipex->cmd1);
-		return (ft_close(pipex));
-	}
-	if (ft_strncmp(pipex->cmd2[0], "awk", 3) == 0)
-		handle_awk(argv[3], pipex->cmd2);
+	if (ft_strncmp(pipex->command[0], "awk", 3) == 0)
+		handle_awk(cmd, pipex->command);
 	return (0);
 }
 
-int	init_pipex(t_pipex *pipex, char **argv, char **env)
+char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd)
 {
-	pipex->fd2 = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (pipex->fd2 < 0)
-		return (1);
-	pipex->fd1 = open(argv[1], O_RDONLY);
-	if (pipex->fd1 < 0)
-	{
-		close(pipex->fd2);
-		return (1);
-	}
-	if (get_cmd(pipex, argv))
-		return (1);
-	if (find_cmd_paths(pipex, env))
-		return (1);
-	if (pipe(pipex->pipe) == -1)
-	{
-		perror("pipe : ");
-		ft_close(pipex);
-		return (1);
-	}
-	return (0);
+	char	*cmd_rtr;
+
+	cmd_rtr = NULL;
+	if (get_instruction(pipex, cmd))
+		return (NULL);
+	if (find_cmd_paths(pipex, args.env))
+		return (NULL);
+	cmd_rtr = check_cmd(pipex, pipex->command);
+	if (!cmd_rtr)
+		return (NULL);
+	return (cmd_rtr);
 }

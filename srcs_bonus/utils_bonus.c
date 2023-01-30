@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:26:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/27 15:51:10 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:12:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	close_pipe(t_pipex *pipex)
 
 int	ft_free_all(t_pipex	*pipex)
 {
-	free_array(pipex->remplace_cmd1);
+	free_array(pipex->command);
 	free_array(pipex->cmd_paths);
 	return (1);
 }

@@ -6,35 +6,18 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:26:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/26 18:34:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:33:15 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	handle_awk(char *argv, char **cmd)
-{
-	int	i;
-
-	i = 1;
-	while (*argv && (*argv != '\'' && *argv != '\"'))
-		argv++;
-	while (*argv && (*argv == '\'' || *argv == '\"'))
-		argv++;
-	cmd[i] = argv;
-	while (*argv && (*argv != '\'' && *argv != '\"'))
-		argv++;
-	*argv = '\0';
-	while (cmd[++i])
-		cmd[i] = NULL;
-	return (0);
-}
-
 int	cmd_not_found(t_pipex *pipex, char *cmd)
 {
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
-	ft_free_all(pipex);
+	free_array(pipex->command);
+	free_array(pipex->cmd_paths);
 	return (0);
 }
 
