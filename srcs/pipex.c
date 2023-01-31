@@ -6,33 +6,11 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:08 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/31 12:54:27 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:36:45 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-int	pipex_init(t_pipex *pipex, int argc, char **argv, char **env)
-{
-	pipex->args.argc = argc;
-	pipex->args.argv = argv;
-	pipex->args.env = env;
-	pipex->args.i = 2;
-	pipex->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (pipex->fd2 < 0)
-	{
-		perror(argv[argc - 1]);
-		return (1);
-	}
-	pipex->fd1 = open(argv[1], O_RDONLY);
-	if (pipex->fd1 < 0)
-	{
-		close (pipex->fd2);
-		perror(argv[1]);
-		return (1);
-	}
-	return (0);
-}
 
 int	error_msg(char *str)
 {

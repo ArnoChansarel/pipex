@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:22 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/30 17:23:59 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:37:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_pipex {
 int		init_pipex(t_pipex *pipex, char **argv);
 int		launch_processes(t_pipex *pipex, t_arg *args);
 char	*get_cmd(t_pipex *pipex, t_arg args, char *cmd);
+int		pipex_init(t_pipex *pipex, int argc, char **argv, char **env);
 
 /*UTILS*/
 int		free_array(char **array);

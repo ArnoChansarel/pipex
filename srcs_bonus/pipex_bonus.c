@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:12:08 by arnalove          #+#    #+#             */
-/*   Updated: 2023/01/31 12:51:51 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:31:12 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int argc, char *argv[], char *env[])
 			return (1);
 		launch_processes(&pipex, &pipex.args);
 		unlink("here_doc");
-		system("leaks pipex");
 	}
 	else
 		return (error_msg("Error : Correct usage is =>\n \

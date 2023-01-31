@@ -23,7 +23,8 @@ SRC_PATH = ./srcs/
 SRC = 	pipex \
 		parsing \
 		children \
-		utils
+		utils \
+		open
 C_FILES = $(addprefix $(SRC_PATH), $(SRC:=.c))
 OBJ = $(addprefix $(SRC_PATH), $(SRC:=.o))
 
@@ -33,7 +34,7 @@ SRC_BONUS = pipex_bonus \
 			parsing_bonus \
 			children_bonus \
 			utils_bonus \
-			open \
+			open_bonus \
 			gnl/get_next_line \
 			gnl/get_next_line_utils
 C_FILES_BONUS = $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS:=.c))
