@@ -6,11 +6,11 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:02:44 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/30 21:05:01 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:41:15 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 int	get_here_doc(t_pipex *pipex, char **argv)
 {
@@ -41,9 +41,9 @@ int	pipex_init(t_pipex *pipex, int argc, char **argv, char **env)
 	pipex->args.env = env;
 	pipex->args.i = 2;
 	if (pipex->args.here_doc)
-		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_RDWR | O_APPEND, 0644);
+		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else
-		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (pipex->fd2 < 0)
 	{
 		perror(argv[argc - 1]);

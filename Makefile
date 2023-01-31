@@ -33,6 +33,7 @@ SRC_BONUS = pipex_bonus \
 			parsing_bonus \
 			children_bonus \
 			utils_bonus \
+			open \
 			gnl/get_next_line \
 			gnl/get_next_line_utils
 C_FILES_BONUS = $(addprefix $(SRC_PATH_BONUS), $(SRC_BONUS:=.c))

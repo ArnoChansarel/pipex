@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:01:47 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/30 17:54:35 by achansar         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:54:21 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static int	parent_process(t_pipex *pipex, t_arg *args)
 		var = WEXITSTATUS(status);
 		if (var)
 		{
-			system("leaks pipex");
 			exit(var);
 		}
 	}
