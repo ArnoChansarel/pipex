@@ -23,7 +23,7 @@ respectivement l'utilisation d'un Here Document en input et la redirection outpu
 
 ## Fonctionnement
 
-    Il faut tout d'abord comprendre le principe des processus, et pourquoi il est nécessaire de faire appel à un processus enfant pour executer une commande. 
+Il faut tout d'abord comprendre le principe des processus, et pourquoi il est nécessaire de faire appel à un processus enfant pour executer une commande. 
 Lorsque l'on execute un programme, un espace mémoire lui est alloué ainsi que des ressources et une stack, et ce jusqu'a l'arret du programme. Cet ensemble constitue une instance appelé processus et est identifié par un numéro, le PID (Process IDentifier). Pour voir l'ensemble des processus en cours, entrez la commande ```bash $> ps -e ``` dans le shell.
 
 De plus, chaque commande (ls, cat, wc...) sont, à l'exeption de certaines qu'il n'est pas necessaire lister ici, eux memes des programmes. Pour pouvoir executer un second programme à travers un premier, nous devons utiliser la fonction **execve()**.
