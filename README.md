@@ -3,7 +3,7 @@
 ## Principe
 ### Version simple
 L'objectif du programme Pipex est de recréer le fonctionnement du pipe "|" et des redirections "<" et ">" du shell.
-Ainsi le commande suivante :
+Ainsi la commande suivante :
 ```bash
 $> ./pipex file1 cmd1 cmd2 file2
 ```
@@ -23,8 +23,9 @@ respectivement l'utilisation d'un Here Document en input et la redirection outpu
 
 ## Fonctionnement
 
-Il faut tout d'abord comprendre le principe des processus, et pourquoi il est nécessaire de faire appel à un processus enfant pour executer une commande. 
+    Il faut tout d'abord comprendre le principe des processus, et pourquoi il est nécessaire de faire appel à un processus enfant pour executer une commande. 
 Lorsque l'on execute un programme, un espace mémoire lui est alloué ainsi que des ressources et une stack, et ce jusqu'a l'arret du programme. Cet ensemble constitue une instance appelé processus et est identifié par un numéro, le PID (Process IDentifier). Pour voir l'ensemble des processus en cours, entrez la commande ```bash $> ps -e ``` dans le shell.
+
 De plus, chaque commande (ls, cat, wc...) sont, à l'exeption de certaines qu'il n'est pas necessaire lister ici, eux memes des programmes. Pour pouvoir executer un second programme à travers un premier, nous devons utiliser la fonction **execve()**.
 Cette fonction va, si lui a été fourni une commande existante ainsi qu'un chemin d'accès valide, executer la dite commande puis terminer le processus dans lequel elle a été appelée. Cependant dans le cas de notre Pipex nous aurons deux commandes à executer. Comment empecher l'arret de notre programme au premier appel d'execve() ? En faisant appel à la fonction fork() et en créant des processus enfants.
 
@@ -41,11 +42,12 @@ L'objectif est donc de faire coincider la sortie de notre child1 avec la sortie 
 ## Difficultés rencontrées
 ### Pipes non fermés
 Comme le pipe est représenté par deux file descriptors, il est important de les tenir toujours fermés une fois utilisés, sinon des comportements indésirables seront produits. Par exemple, si un descripteur d'ecriture n'est pas fermé, le processus de lecture restera continuellement en attente que de nouvelles données soient écrites, et bloquera le programme indéfiniment.
-### Gestion des FDs
-La compréhension puis gestion des differents file descriptors a été pour moi assez difficile, surtout de trouver une technique efficace pour gérer les FDs des pipes multiples. 
 
 ### Attente des pipes multiples
 J'ai pu comprendre par la suite que ma méthode n'est pas la bonne quand à la gestion des pipes multiples. En effet, ma technique ici est de lancer les processus un par un, demandant au parent d'attendre chacun avant de lancer le suivant. Ce qui peut bloquer selon les commandes utilisées ma chaine de pipe. Ce problème est réglé dans le projet Limonshello, afin de coller au fonctionnement de Bash.
+
+### Gestion des FDs
+La compréhension puis gestion des differents file descriptors a été pour moi assez difficile, surtout de trouver une technique efficace pour gérer les FDs des pipes multiples. 
 
 ## Documentation utilisée
 - [Une très bonne explication en français](http://www.zeitoun.net/articles/communication-par-tuyau/start)
