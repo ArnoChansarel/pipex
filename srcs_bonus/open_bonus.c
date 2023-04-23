@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open.c                                             :+:      :+:    :+:   */
+/*   open_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:02:44 by achansar          #+#    #+#             */
-/*   Updated: 2023/01/31 12:41:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:26:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_here_doc(t_pipex *pipex, char **argv)
 		if (line)
 			free(line);
 		line = get_next_line(0);
-		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0)
+		if (ft_strncmp(line, argv[2], ft_strlen(argv[2]) + 1) == 0)
 			break ;
 	}
 	free(line);
